@@ -74,6 +74,47 @@
     }
     .nav-link:hover { opacity:1; }
 
+    /* Desktop nav */
+    .nav-desktop { display:flex; gap:28px; align-items:center; }
+
+    /* Hamburger button */
+    .hamburger {
+      display:none; flex-direction:column; gap:5px;
+      background:none; border:none; cursor:pointer; padding:4px;
+    }
+    .hamburger span {
+      display:block; width:22px; height:2px;
+      background:var(--dark); border-radius:2px;
+      transition:all 0.25s;
+    }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav panel */
+    .mobile-nav {
+      display:none; flex-direction:column;
+      background:rgba(245,237,213,0.98);
+      backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+      padding:12px 28px 20px;
+      border-top:1px solid rgba(214,48,40,0.12);
+      gap:0;
+    }
+    .mobile-nav.open { display:flex; }
+    .mobile-nav-link {
+      font-family:'Nunito',sans-serif; font-weight:700;
+      font-size:1.05rem; color:var(--dark);
+      text-decoration:none; padding:14px 0;
+      border-bottom:1px solid rgba(214,48,40,0.1);
+      opacity:0.75; transition:opacity 0.2s;
+    }
+    .mobile-nav-link:last-child { border-bottom:none; }
+    .mobile-nav-link:hover { opacity:1; }
+
+    /* Stat/location dividers — hidden when row wraps */
+    .stat-div { width:1px; background:rgba(214,48,40,0.15); }
+    .loc-div  { width:1px; background:rgba(255,255,255,0.2); }
+
     /* Lang switcher */
     .lang-wrap { display:flex; gap:3px; background:rgba(214,48,40,0.08); padding:3px; border-radius:999px; }
     .lang-btn {
@@ -474,11 +515,17 @@
       .menu-card.featured .menu-img { aspect-ratio:1/1; }
       .pull-circle { display:none; }
     }
+    @media (max-width:768px) {
+      .nav-desktop { display:none; }
+      .hamburger   { display:flex; }
+    }
     @media (max-width:580px) {
       .menu-grid { grid-template-columns:1fr; }
       .location-card { padding:40px 24px; }
       .hero-btns { flex-direction:column; }
       .btn-red, .btn-ghost { justify-content:center; }
+      .stat-div, .loc-div { display:none; }
+      .location-row { gap:24px; }
     }
 
     /* ── RTL ── */
@@ -498,16 +545,28 @@
       <img src="images/andcookies-wordmark.png" alt="&COOKIES" style="height:36px;width:auto;object-fit:contain;" />
     </a>
 
-    <nav style="display:flex;gap:28px;align-items:center;">
+    <nav class="nav-desktop">
       <a href="#menu"     class="nav-link" data-i18n="nav_menu">Menu</a>
       <a href="#about"    class="nav-link" data-i18n="nav_about">About</a>
       <a href="#location" class="nav-link" data-i18n="nav_find">Find Us</a>
     </nav>
 
-    <div class="lang-wrap">
-      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">عربي</button>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="lang-wrap">
+        <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">عربي</button>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileNav()" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </div>
+
+  <!-- Mobile navigation drawer -->
+  <div class="mobile-nav" id="mobile-nav" role="navigation">
+    <a href="#menu"     class="mobile-nav-link" data-i18n="nav_menu"  onclick="closeMobileNav()">Menu</a>
+    <a href="#about"    class="mobile-nav-link" data-i18n="nav_about" onclick="closeMobileNav()">About</a>
+    <a href="#location" class="mobile-nav-link" data-i18n="nav_find"  onclick="closeMobileNav()">Find Us</a>
   </div>
 </header>
 
@@ -570,12 +629,12 @@
           <div style="font-family:'Corben',serif;font-weight:700;font-size:1.8rem;color:var(--red);">6</div>
           <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);" data-i18n="stat1">Flavors this month</div>
         </div>
-        <div style="width:1px;background:rgba(214,48,40,0.15);"></div>
+        <div class="stat-div"></div>
         <div>
           <div style="font-family:'Corben',serif;font-weight:700;font-size:1.8rem;color:var(--red);">1</div>
           <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);" data-i18n="stat2">Month only</div>
         </div>
-        <div style="width:1px;background:rgba(214,48,40,0.15);"></div>
+        <div class="stat-div"></div>
         <div>
           <div style="font-family:'Caveat',serif;font-weight:700;font-size:1.4rem;color:var(--red);">∞</div>
           <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);" data-i18n="stat3">Obsession</div>
@@ -767,13 +826,13 @@
           <div class="loc-item-val" style="color:#fff;" data-i18n="hours">10AM – 12AM</div>
           <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:2px;" data-i18n="daily">Daily</div>
         </div>
-        <div style="width:1px;background:rgba(255,255,255,0.2);"></div>
+        <div class="loc-div"></div>
         <div>
           <div class="loc-item-label" style="color:rgba(255,255,255,0.5);" data-i18n="delivery_label">Delivery</div>
           <div class="loc-item-val" style="color:#fff;">Talabat</div>
           <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:2px;" data-i18n="delivery_sub">+ WhatsApp</div>
         </div>
-        <div style="width:1px;background:rgba(255,255,255,0.2);"></div>
+        <div class="loc-div"></div>
         <div>
           <div class="loc-item-label" style="color:rgba(255,255,255,0.5);">Instagram</div>
           <a href="https://www.instagram.com/andcookies.kw/" target="_blank" rel="noopener"
@@ -874,6 +933,21 @@
     }
   };
 
+  function toggleMobileNav() {
+    const nav = document.getElementById('mobile-nav');
+    const btn = document.getElementById('hamburger');
+    const open = nav.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  }
+  function closeMobileNav() {
+    const nav = document.getElementById('mobile-nav');
+    const btn = document.getElementById('hamburger');
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
   function setLang(lang) {
     const tr = t[lang];
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -889,6 +963,15 @@
   }
 
   (function(){ setLang(localStorage.getItem('preferred-language') || 'en'); })();
+
+  // Close mobile nav on outside tap
+  document.addEventListener('click', function(e) {
+    const nav = document.getElementById('mobile-nav');
+    const btn = document.getElementById('hamburger');
+    if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+      closeMobileNav();
+    }
+  });
 
   // Scroll reveal
   const obs = new IntersectionObserver(entries => {
