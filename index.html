@@ -101,14 +101,14 @@
       position:relative; padding:60px 28px;
     }
 
-    /* Giant decorative & — softer than retro, still visible */
+    /* Giant decorative & — uses real brand logo image */
     .hero-ghost-amp {
       position:absolute;
-      font-family:'Corben',serif; font-weight:700;
-      font-size: clamp(300px, 42vw, 560px);
-      color:var(--red); opacity:0.05;
-      right:-8%; top:50%; transform:translateY(-52%);
-      line-height:1; user-select:none; pointer-events:none;
+      width: clamp(300px, 42vw, 560px);
+      height: auto;
+      opacity:0.07;
+      right:-6%; top:50%; transform:translateY(-52%);
+      user-select:none; pointer-events:none;
       animation:float 9s ease-in-out infinite;
     }
 
@@ -494,7 +494,10 @@
 <!-- ══════════════════════ HEADER ══════════════════════ -->
 <header>
   <div class="header-inner">
-    <a href="#" class="wordmark">&amp;COOKIES</a>
+    <a href="#" class="wordmark" style="display:flex;align-items:center;gap:0;">
+      <img src="images/ampersand-logo.png" alt="&" style="height:38px;width:38px;object-fit:contain;margin-right:-2px;" />
+      <span style="font-family:'Corben',serif;font-weight:700;font-size:1.5rem;color:var(--red);">COOKIES</span>
+    </a>
 
     <nav style="display:flex;gap:28px;align-items:center;">
       <a href="#menu"     class="nav-link" data-i18n="nav_menu">Menu</a>
@@ -536,7 +539,7 @@
 
 <!-- ══════════════════════ HERO ══════════════════════ -->
 <section class="hero">
-  <div class="hero-ghost-amp">&amp;</div>
+  <img src="images/ampersand-logo.png" alt="" class="hero-ghost-amp" style="object-fit:contain;" aria-hidden="true" />
 
   <div class="hero-inner">
 
@@ -544,8 +547,9 @@
     <div style="animation:fadeUp 0.8s ease both;">
       <span class="hero-eyebrow" data-i18n="hero_eyebrow">✦ Messilah Beach, Kuwait</span>
 
-      <h1 class="hero-title">
-        <span class="red">&amp;</span><span data-i18n="hero_title">COOKIES</span>
+      <h1 class="hero-title" style="display:flex;align-items:center;gap:0;flex-wrap:nowrap;">
+        <img src="images/ampersand-logo.png" alt="&" style="height:0.95em;width:auto;object-fit:contain;flex-shrink:0;" />
+        <span data-i18n="hero_title">COOKIES</span>
       </h1>
 
       <p class="hero-body" data-i18n="hero_body">
@@ -757,8 +761,9 @@
 
     <!-- Copy -->
     <div>
-      <h2 class="pull-title">
-        <span class="amp">&amp;</span>COOKIES
+      <h2 class="pull-title" style="display:flex;align-items:center;gap:0;">
+        <img src="images/ampersand-logo.png" alt="&" style="height:0.95em;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9;" />
+        COOKIES
       </h2>
       <span class="pull-script" data-i18n="pull_sub">every day.</span>
 
@@ -871,7 +876,10 @@
 <!-- ══════════════════════ FOOTER ══════════════════════ -->
 <footer>
   <div class="footer-inner">
-    <a href="#" class="footer-logo">&amp;COOKIES</a>
+    <a href="#" class="footer-logo" style="display:flex;align-items:center;gap:0;">
+      <img src="images/ampersand-logo.png" alt="&" style="height:1.3em;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85;" />
+      <span>COOKIES</span>
+    </a>
     <p class="footer-copy" data-i18n="footer_copy">The Best Cookies in Town · Messilah Beach, Kuwait</p>
     <a href="https://www.instagram.com/andcookies.kw/" target="_blank" rel="noopener" class="footer-ig ltr-text">@andcookies.kw</a>
   </div>
