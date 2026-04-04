@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&COOKIES — The Best Cookies in Town</title>
+  <meta name="description" content="&Cookies — Specialty cookie brand. Rotating monthly menu. Messilah Beach, Kuwait." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Corben:wght@400;700&family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@600;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --red:       #D63028;
+      --cream:     #F5EDD5;
+      --cream-mid: #EDE3C4;
+      --white:     #FFFFFF;
+      --dark:      #1C1C1C;
+      --gray:      #5A5A5A;
+      --lav:       #C9B4D3;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      font-family: 'Nunito', 'Cairo', sans-serif;
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+    html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+
+    /* ── Keyframes ── */
+    @keyframes fadeUp    { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes float     { 0%,100% { transform:translateY(0) rotate(-1.5deg); } 50% { transform:translateY(-14px) rotate(-1.5deg); } }
+    @keyframes floatImg  { 0%,100% { transform:translateY(0) rotate(2deg); } 50% { transform:translateY(-8px) rotate(2deg); } }
+    @keyframes pulse     { 0%,100% { transform:scale(1); } 50% { transform:scale(1.05); } }
+    @keyframes marquee   { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+    @keyframes spin      { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+    @keyframes bounceDot { 0%,100% { transform:scaleX(1); } 50% { transform:scaleX(1.15); } }
+
+    /* ── Grain texture ── */
+    body::after {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      opacity:0.5;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(245,237,213,0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 2px solid rgba(214,48,40,0.12);
+    }
+    .header-inner {
+      max-width:1240px; margin:0 auto;
+      padding:0 28px; height:68px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .wordmark {
+      font-family:'Corben', serif; font-weight:700;
+      font-size:1.5rem; color:var(--red);
+      text-decoration:none; letter-spacing:-0.01em;
+    }
+    .nav-link {
+      font-family:'Nunito', sans-serif; font-weight:700;
+      font-size:0.9rem; color:var(--dark); text-decoration:none;
+      opacity:0.65; transition:opacity 0.2s;
+      letter-spacing:0.03em;
+    }
+    .nav-link:hover { opacity:1; }
+
+    /* Lang switcher */
+    .lang-wrap { display:flex; gap:3px; background:rgba(214,48,40,0.08); padding:3px; border-radius:999px; }
+    .lang-btn {
+      padding:5px 15px; border-radius:999px; border:none; cursor:pointer;
+      font-family:'Nunito',sans-serif; font-weight:800; font-size:0.78rem;
+      transition:all 0.18s; letter-spacing:0.04em;
+    }
+    .lang-btn.active { background:var(--red); color:#fff; }
+    .lang-btn:not(.active) { background:transparent; color:var(--red); }
+    .lang-btn:not(.active):hover { background:rgba(214,48,40,0.1); }
+
+    /* ── TICKER ── */
+    .ticker { background:var(--dark); padding:9px 0; overflow:hidden; }
+    .ticker-track { display:flex; width:max-content; animation:marquee 20s linear infinite; }
+    .ticker-item {
+      font-family:'Nunito',sans-serif; font-weight:700; font-size:0.8rem;
+      color:var(--cream); white-space:nowrap; padding:0 28px;
+      letter-spacing:0.12em; text-transform:uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:92vh; display:flex; align-items:center;
+      background:var(--cream); overflow:hidden;
+      position:relative; padding:60px 28px;
+    }
+
+    /* Giant decorative & — softer than retro, still visible */
+    .hero-ghost-amp {
+      position:absolute;
+      font-family:'Corben',serif; font-weight:700;
+      font-size: clamp(300px, 42vw, 560px);
+      color:var(--red); opacity:0.05;
+      right:-8%; top:50%; transform:translateY(-52%);
+      line-height:1; user-select:none; pointer-events:none;
+      animation:float 9s ease-in-out infinite;
+    }
+
+    .hero-inner {
+      max-width:1240px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:60px; align-items:center;
+      position:relative; z-index:2; width:100%;
+    }
+
+    .hero-eyebrow {
+      font-family:'Caveat',sans-serif; font-weight:600;
+      font-size:1.35rem; color:var(--red); margin-bottom:12px;
+      display:inline-block;
+    }
+
+    .hero-title {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:clamp(3.2rem,7vw,5.8rem);
+      color:var(--dark); line-height:1; letter-spacing:-0.02em;
+      margin-bottom:20px;
+    }
+    .hero-title .red { color:var(--red); }
+
+    .hero-body {
+      font-size:1.05rem; line-height:1.75; color:var(--gray);
+      max-width:420px; margin-bottom:36px;
+    }
+
+    .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+
+    .btn-red {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:13px 30px; border-radius:12px;
+      background:var(--red); color:#fff;
+      font-family:'Nunito',sans-serif; font-weight:800; font-size:0.95rem;
+      border:2px solid var(--red); text-decoration:none;
+      box-shadow:0 4px 16px rgba(214,48,40,0.28);
+      transition:all 0.2s;
+    }
+    .btn-red:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(214,48,40,0.35); }
+    .btn-red:active { transform:translateY(0); box-shadow:0 2px 8px rgba(214,48,40,0.2); }
+
+    .btn-ghost {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:13px 30px; border-radius:12px;
+      background:transparent; color:var(--dark);
+      font-family:'Nunito',sans-serif; font-weight:800; font-size:0.95rem;
+      border:2px solid rgba(28,28,28,0.2); text-decoration:none;
+      transition:all 0.2s;
+    }
+    .btn-ghost:hover { border-color:var(--dark); background:rgba(28,28,28,0.05); }
+
+    /* Hero image stack */
+    .hero-img-stack { position:relative; height:520px; }
+
+    .hero-img-main {
+      position:absolute; top:0; right:0;
+      width:88%; border-radius:24px;
+      border:3px solid rgba(214,48,40,0.15);
+      box-shadow:0 24px 60px rgba(0,0,0,0.12);
+      object-fit:cover; aspect-ratio:4/5;
+      animation:floatImg 7s ease-in-out infinite;
+    }
+
+    .hero-img-float {
+      position:absolute; bottom:-20px; left:0;
+      width:52%; border-radius:18px;
+      border:3px solid rgba(214,48,40,0.15);
+      box-shadow:0 16px 40px rgba(0,0,0,0.12);
+      object-fit:cover; aspect-ratio:1/1;
+      transform:rotate(2deg);
+      animation:float 8s 1s ease-in-out infinite;
+    }
+
+    /* Stamp on hero images */
+    .hero-stamp {
+      position:absolute; top:16px; left:10%;
+      width:96px; height:96px; border-radius:50%;
+      background:var(--red); border:3px solid var(--dark);
+      display:flex; align-items:center; justify-content:center;
+      flex-direction:column; text-align:center;
+      box-shadow:0 8px 24px rgba(214,48,40,0.4);
+      animation:pulse 3s ease-in-out infinite;
+      z-index:3;
+    }
+    .hero-stamp-text {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:0.62rem; color:#fff; line-height:1.3;
+      text-transform:uppercase; letter-spacing:0.05em;
+    }
+
+    /* ── SECTION ANATOMY ── */
+    .section-label {
+      display:inline-block;
+      font-family:'Nunito',sans-serif; font-weight:800;
+      font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase;
+      color:var(--red); margin-bottom:12px;
+    }
+
+    .section-title {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:clamp(2rem,4.5vw,3.4rem);
+      color:var(--dark); line-height:1.1; margin-bottom:16px;
+    }
+
+    /* ── ABOUT ── */
+    .about { padding:100px 28px; background:var(--white); }
+    .about-inner {
+      max-width:1240px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:80px; align-items:center;
+    }
+
+    .about-img-wrap { position:relative; }
+    .about-img-main {
+      width:100%; border-radius:20px;
+      box-shadow:0 20px 50px rgba(0,0,0,0.1);
+      border:2px solid rgba(214,48,40,0.1);
+    }
+
+    /* Floating accent card */
+    .about-card {
+      position:absolute; bottom:-28px; right:-24px;
+      background:var(--cream); border-radius:16px;
+      padding:16px 20px;
+      box-shadow:0 12px 32px rgba(0,0,0,0.1);
+      border:1.5px solid rgba(214,48,40,0.2);
+    }
+    .about-card-big {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:2rem; color:var(--red); line-height:1;
+    }
+    .about-card-small {
+      font-size:0.78rem; font-weight:700; color:var(--gray);
+      letter-spacing:0.08em; text-transform:uppercase; margin-top:4px;
+    }
+
+    .about-body { font-size:1rem; line-height:1.8; color:var(--gray); margin-bottom:16px; }
+
+    .quote-block {
+      background:var(--cream); border-radius:12px; padding:20px 24px;
+      border-left:4px solid var(--red); margin-top:24px;
+    }
+    .quote-text {
+      font-family:'Caveat',sans-serif; font-weight:700;
+      font-size:1.25rem; color:var(--dark);
+    }
+
+    /* ── WAVE ── */
+    .wave-wrap { display:block; overflow:hidden; line-height:0; }
+
+    /* ── MENU ── */
+    .menu { padding:100px 28px; background:var(--cream); }
+    .menu-inner { max-width:1240px; margin:0 auto; }
+
+    .menu-header { text-align:center; margin-bottom:56px; }
+
+    .menu-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+
+    .menu-card {
+      background:var(--white); border-radius:20px;
+      overflow:hidden; position:relative;
+      border:1.5px solid rgba(214,48,40,0.1);
+      box-shadow:0 4px 20px rgba(0,0,0,0.06);
+      transition:all 0.28s ease;
+    }
+    .menu-card:hover {
+      transform:translateY(-6px);
+      box-shadow:0 16px 40px rgba(214,48,40,0.14);
+      border-color:rgba(214,48,40,0.3);
+    }
+
+    /* Featured card (first) — spans 2 rows */
+    .menu-card.featured {
+      grid-row:span 2;
+    }
+    .menu-card.featured .menu-img {
+      aspect-ratio:3/4; height:auto;
+    }
+
+    .menu-img { width:100%; aspect-ratio:1/1; object-fit:cover; display:block; }
+    .menu-placeholder {
+      width:100%; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+      background:var(--cream-mid);
+    }
+    .menu-placeholder svg { opacity:0.3; }
+
+    .menu-body { padding:20px; }
+    .menu-name {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:1.05rem; color:var(--dark); margin-bottom:5px;
+    }
+    .menu-desc { font-size:0.85rem; color:var(--gray); line-height:1.55; }
+
+    .local-tag {
+      position:absolute; top:12px; right:12px;
+      background:var(--red); color:#fff;
+      font-family:'Nunito',sans-serif; font-weight:800;
+      font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase;
+      padding:4px 10px; border-radius:999px;
+    }
+    html[dir="rtl"] .local-tag { right:auto; left:12px; }
+
+    /* ── PULL SHOT ── */
+    .pull { padding:100px 28px; background:var(--dark); position:relative; overflow:hidden; }
+    .pull-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+
+    .pull-img-wrap { position:relative; }
+    .pull-img {
+      width:100%; border-radius:20px;
+      box-shadow:0 24px 60px rgba(0,0,0,0.4);
+    }
+
+    /* Red accent circle behind image */
+    .pull-circle {
+      position:absolute; top:-32px; left:-32px;
+      width:200px; height:200px; border-radius:50%;
+      background:rgba(214,48,40,0.15);
+      pointer-events:none;
+    }
+
+    .pull-title {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:clamp(2.8rem,6vw,5rem);
+      color:var(--cream); line-height:1; margin-bottom:20px;
+    }
+    .pull-title .amp { color:var(--red); }
+
+    .pull-script {
+      font-family:'Caveat',sans-serif; font-weight:700;
+      font-size:1.6rem; color:rgba(245,237,213,0.55);
+      margin-bottom:32px; display:block;
+    }
+
+    /* ── ORDER ── */
+    .order { padding:100px 28px; background:var(--red); position:relative; overflow:hidden; }
+    .order::before {
+      content:''; position:absolute;
+      top:-60px; left:50%; transform:translateX(-50%);
+      width:500px; height:500px; border-radius:50%;
+      background:rgba(255,255,255,0.06);
+      pointer-events:none;
+    }
+    .order-inner { max-width:700px; margin:0 auto; text-align:center; position:relative; z-index:2; }
+
+    .order-title {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:clamp(2.5rem,7vw,5rem); color:#fff;
+      line-height:1.05; margin-bottom:12px;
+    }
+    .order-sub {
+      font-size:1rem; color:rgba(255,255,255,0.75);
+      margin-bottom:40px; line-height:1.7;
+    }
+
+    .btn-white {
+      display:inline-flex; align-items:center; gap:10px;
+      padding:16px 40px; border-radius:14px;
+      background:#fff; color:var(--red);
+      font-family:'Nunito',sans-serif; font-weight:900; font-size:1.05rem;
+      border:2px solid rgba(255,255,255,0.8);
+      text-decoration:none;
+      box-shadow:0 8px 24px rgba(0,0,0,0.15);
+      transition:all 0.2s;
+    }
+    .btn-white:hover { transform:translateY(-2px); box-shadow:0 14px 32px rgba(0,0,0,0.2); }
+
+    .btn-outline-white {
+      display:inline-flex; align-items:center; gap:10px;
+      padding:16px 40px; border-radius:14px;
+      background:transparent; color:#fff;
+      font-family:'Nunito',sans-serif; font-weight:900; font-size:1.05rem;
+      border:2px solid rgba(255,255,255,0.45);
+      text-decoration:none; transition:all 0.2s;
+    }
+    .btn-outline-white:hover { border-color:#fff; background:rgba(255,255,255,0.1); }
+
+    /* ── LOCATION ── */
+    .location { padding:100px 28px; background:var(--cream); }
+    .location-inner { max-width:860px; margin:0 auto; }
+    .location-card {
+      background:var(--white); border-radius:24px;
+      padding:56px 48px; text-align:center;
+      box-shadow:0 8px 40px rgba(0,0,0,0.07);
+      border:1.5px solid rgba(214,48,40,0.12);
+      position:relative;
+    }
+
+    /* Spinning circular badge */
+    .loc-badge {
+      position:absolute; top:-30px; right:36px;
+      width:84px; height:84px;
+      animation:spin 20s linear infinite;
+    }
+
+    .location-name {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:clamp(2rem,5vw,3rem); color:var(--dark);
+      margin-bottom:4px;
+    }
+    .location-city {
+      font-family:'Caveat',sans-serif; font-weight:700;
+      font-size:1.4rem; color:var(--red); margin-bottom:36px;
+    }
+    .location-row {
+      display:flex; gap:40px; justify-content:center; flex-wrap:wrap;
+      padding:28px 0;
+      border-top:1.5px dashed rgba(214,48,40,0.2);
+      border-bottom:1.5px dashed rgba(214,48,40,0.2);
+      margin-bottom:36px;
+    }
+    .loc-item-label {
+      font-size:0.7rem; font-weight:800; letter-spacing:0.18em;
+      text-transform:uppercase; color:#bbb; margin-bottom:6px;
+    }
+    .loc-item-val {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:1rem; color:var(--dark);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--dark); padding:36px 28px;
+      border-top:3px solid var(--red);
+    }
+    .footer-inner {
+      max-width:1240px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    }
+    .footer-logo {
+      font-family:'Corben',serif; font-weight:700;
+      font-size:1.5rem; color:var(--cream); text-decoration:none;
+    }
+    .footer-copy { font-size:0.82rem; color:rgba(245,237,213,0.4); }
+    .footer-ig {
+      font-size:0.85rem; font-weight:800; color:var(--red);
+      text-decoration:none; transition:color 0.2s;
+    }
+    .footer-ig:hover { color:var(--cream); }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity:0; transform:translateY(28px);
+      transition:opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ── Mobile ── */
+    @media (max-width:900px) {
+      .hero-inner, .about-inner, .pull-inner { grid-template-columns:1fr; }
+      .hero-img-stack { height:auto; margin-top:40px; }
+      .hero-img-main { position:relative; width:100%; right:auto; top:auto; }
+      .hero-img-float { display:none; }
+      .hero-stamp { top:12px; left:12px; }
+      .about-card { display:none; }
+      .menu-grid { grid-template-columns:1fr 1fr; }
+      .menu-card.featured { grid-row:span 1; }
+      .menu-card.featured .menu-img { aspect-ratio:1/1; }
+      .pull-circle { display:none; }
+    }
+    @media (max-width:580px) {
+      .menu-grid { grid-template-columns:1fr; }
+      .location-card { padding:40px 24px; }
+      .hero-btns { flex-direction:column; }
+      .btn-red, .btn-ghost { justify-content:center; }
+    }
+
+    /* ── RTL ── */
+    html[dir="rtl"] .about-inner { direction:rtl; }
+    html[dir="rtl"] .quote-block { border-left:none; border-right:4px solid var(--red); }
+    html[dir="rtl"] .hero-inner { direction:rtl; }
+    html[dir="rtl"] .pull-inner { direction:rtl; }
+    html[dir="rtl"] .footer-inner { direction:rtl; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ HEADER ══════════════════════ -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="wordmark">&amp;COOKIES</a>
+
+    <nav style="display:flex;gap:28px;align-items:center;">
+      <a href="#menu"     class="nav-link" data-i18n="nav_menu">Menu</a>
+      <a href="#about"    class="nav-link" data-i18n="nav_about">About</a>
+      <a href="#order"    class="nav-link" data-i18n="nav_order">Order</a>
+      <a href="#location" class="nav-link" data-i18n="nav_find">Find Us</a>
+    </nav>
+
+    <div class="lang-wrap">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">عربي</button>
+    </div>
+  </div>
+</header>
+
+
+<!-- ══════════════════════ TICKER ══════════════════════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">✦ The Best Cookies in Town</span>
+    <span class="ticker-item" style="opacity:0.4;">· · ·</span>
+    <span class="ticker-item">Rotating Monthly Menu</span>
+    <span class="ticker-item" style="opacity:0.4;">· · ·</span>
+    <span class="ticker-item">Messilah Beach, Kuwait</span>
+    <span class="ticker-item" style="opacity:0.4;">· · ·</span>
+    <span class="ticker-item">10AM – 12AM Daily</span>
+    <span class="ticker-item" style="opacity:0.4;">· · ·</span>
+    <span class="ticker-item">✦ The Best Cookies in Town</span>
+    <span class="ticker-item" style="opacity:0.4;">· · ·</span>
+    <span class="ticker-item">Rotating Monthly Menu</span>
+    <span class="ticker-item" style="opacity:0.4;">· · ·</span>
+    <span class="ticker-item">Messilah Beach, Kuwait</span>
+    <span class="ticker-item" style="opacity:0.4;">· · ·</span>
+    <span class="ticker-item">10AM – 12AM Daily</span>
+    <span class="ticker-item" style="opacity:0.4;">· · ·</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero">
+  <div class="hero-ghost-amp">&amp;</div>
+
+  <div class="hero-inner">
+
+    <!-- Left: Copy -->
+    <div style="animation:fadeUp 0.8s ease both;">
+      <span class="hero-eyebrow" data-i18n="hero_eyebrow">✦ Messilah Beach, Kuwait</span>
+
+      <h1 class="hero-title">
+        <span class="red">&amp;</span><span data-i18n="hero_title">COOKIES</span>
+      </h1>
+
+      <p class="hero-body" data-i18n="hero_body">
+        A unique concept rooted in bold flavors &amp; local taste. Our menu rotates monthly — always new cravings, &amp;same obsession.
+      </p>
+
+      <div class="hero-btns">
+        <a href="https://linktr.ee/andcookies" target="_blank" rel="noopener" class="btn-red" data-i18n="btn_talabat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+          Order on Talabat
+        </a>
+        <a href="https://linktr.ee/andcookies" target="_blank" rel="noopener" class="btn-ghost" data-i18n="btn_whatsapp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+
+      <!-- Small stats row -->
+      <div style="display:flex;gap:28px;margin-top:40px;flex-wrap:wrap;">
+        <div>
+          <div style="font-family:'Corben',serif;font-weight:700;font-size:1.8rem;color:var(--red);">6</div>
+          <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);" data-i18n="stat1">Flavors this month</div>
+        </div>
+        <div style="width:1px;background:rgba(214,48,40,0.15);"></div>
+        <div>
+          <div style="font-family:'Corben',serif;font-weight:700;font-size:1.8rem;color:var(--red);">1</div>
+          <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);" data-i18n="stat2">Month only</div>
+        </div>
+        <div style="width:1px;background:rgba(214,48,40,0.15);"></div>
+        <div>
+          <div style="font-family:'Caveat',serif;font-weight:700;font-size:1.4rem;color:var(--red);">∞</div>
+          <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);" data-i18n="stat3">Obsession</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Stacked images -->
+    <div class="hero-img-stack" style="animation:fadeUp 0.8s 0.15s ease both;">
+      <img src="images/cookies-every-day.png"  alt="&Cookies every day" class="hero-img-main" />
+      <img src="images/pomegranate-frosted.png" alt="Pomegranate Frosted" class="hero-img-float" />
+
+      <!-- Stamp -->
+      <div class="hero-stamp">
+        <div style="font-size:1.2rem;margin-bottom:2px;">🍪</div>
+        <div class="hero-stamp-text" data-i18n="stamp">Certifiably<br/>Tempting</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════ ABOUT ══════════════════════ -->
+<div class="wave-wrap" style="background:var(--cream);">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:48px;">
+    <path d="M0,24 C240,48 480,0 720,24 C960,48 1200,0 1440,24 L1440,48 L0,48 Z" fill="white"/>
+  </svg>
+</div>
+
+<section id="about" class="about">
+  <div class="about-inner reveal">
+
+    <!-- Left: Image -->
+    <div class="about-img-wrap">
+      <img src="images/brand-story.png" alt="&Cookies brand story" class="about-img-main" />
+      <div class="about-card">
+        <div class="about-card-big">✦</div>
+        <div class="about-card-small" data-i18n="card_label">Monthly Rotation</div>
+      </div>
+    </div>
+
+    <!-- Right: Text -->
+    <div>
+      <span class="section-label" data-i18n="about_label">✦ Our Story</span>
+      <h2 class="section-title">
+        <span data-i18n="about_h1">Bold flavors.</span><br />
+        <span style="color:var(--red);" data-i18n="about_h2">Local taste.</span>
+      </h2>
+
+      <p class="about-body" data-i18n="about_p1">
+        We are a unique concept rooted in bold flavors &amp; local taste. Our menu rotates monthly, giving each flavor the time &amp; space to be enjoyed.
+      </p>
+      <p class="about-body" data-i18n="about_p2">
+        We rotate our menu monthly to keep things exciting, while still giving the flavors enough time to shine ✦. Each month brings new flavors inspired by the season — and our cravings.
+      </p>
+
+      <div class="quote-block">
+        <img src="images/rotating-menu.png" alt="Rotating menu" style="width:72px;float:right;margin-left:16px;border-radius:10px;transform:rotate(4deg);" />
+        <p class="quote-text" data-i18n="about_quote">"Always new flavors, new cravings, &amp;same obsession!"</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="wave-wrap" style="background:var(--white);">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:48px;">
+    <path d="M0,24 C240,0 480,48 720,24 C960,0 1200,48 1440,24 L1440,48 L0,48 Z" fill="var(--cream)"/>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════ MENU ══════════════════════ -->
+<section id="menu" class="menu">
+  <div class="menu-inner">
+
+    <div class="menu-header reveal">
+      <span class="section-label" data-i18n="menu_label">✦ April's Menu</span>
+      <h2 class="section-title" data-i18n="menu_title">This Month's Six.</h2>
+      <p style="color:var(--gray);font-size:0.95rem;max-width:440px;margin:0 auto;" data-i18n="menu_sub">Six flavors. One month. Then they're gone — for real.</p>
+    </div>
+
+    <div class="menu-grid reveal">
+
+      <!-- Card 1 — featured (tall) -->
+      <div class="menu-card featured">
+        <div class="local-tag" data-i18n="local">Local Flavor</div>
+        <img src="images/pomegranate-frosted.png" alt="Pomegranate Frosted" class="menu-img" style="aspect-ratio:3/4;height:auto;" />
+        <div class="menu-body">
+          <div class="menu-name" data-i18n="f1">Pomegranate Frosted</div>
+          <div class="menu-desc" data-i18n="f1d">Tart pomegranate glaze on a soft, golden cookie base. Local-inspired &amp; totally addictive.</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="menu-card">
+        <img src="images/raspberry-cheesecake.png" alt="Raspberry Cheesecake" class="menu-img" />
+        <div class="menu-body">
+          <div class="menu-name" data-i18n="f2">Raspberry Cheesecake</div>
+          <div class="menu-desc" data-i18n="f2d">Cream cheese swirl, fresh raspberry. Rich, tangy, unforgettable.</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="menu-card">
+        <div class="local-tag" data-i18n="local">Local Flavor</div>
+        <div class="menu-placeholder">
+          <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="42" stroke="#D63028" stroke-width="3"/>
+            <circle cx="37" cy="40" r="6" fill="#D63028"/>
+            <circle cx="60" cy="44" r="5" fill="#D63028"/>
+            <circle cx="46" cy="62" r="7" fill="#D63028"/>
+            <circle cx="66" cy="62" r="4" fill="#D63028"/>
+          </svg>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name" data-i18n="f3">Pistachio Stuffed Baklava</div>
+          <div class="menu-desc" data-i18n="f3d">Kuwait's beloved baklava, reimagined inside a stuffed specialty cookie.</div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="menu-card">
+        <div class="menu-placeholder">
+          <svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="42" stroke="#D63028" stroke-width="3"/>
+            <circle cx="35" cy="42" r="5" fill="#D63028"/>
+            <circle cx="58" cy="38" r="4" fill="#D63028"/>
+            <circle cx="48" cy="63" r="6" fill="#D63028"/>
+            <circle cx="67" cy="60" r="3" fill="#D63028"/>
+          </svg>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name" data-i18n="f4">Apple Crumble</div>
+          <div class="menu-desc" data-i18n="f4d">Warm spiced apple under a buttery crumble top. Comfort in cookie form.</div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="menu-card">
+        <img src="images/banana-cookie.png" alt="Cookie" class="menu-img" />
+        <div class="menu-body">
+          <div class="menu-name" data-i18n="f5">Choco Chunk</div>
+          <div class="menu-desc" data-i18n="f5d">The classic, perfected. Dark chocolate chunks that melt with every bite.</div>
+        </div>
+      </div>
+
+      <!-- Card 6 — Red special -->
+      <div class="menu-card" style="background:var(--red);">
+        <div class="menu-placeholder" style="background:rgba(0,0,0,0.15);">
+          <span style="font-family:'Corben',serif;font-weight:700;font-size:1.1rem;color:#fff;text-align:center;padding:16px;" data-i18n="f6_teaser">Break it open.</span>
+        </div>
+        <div class="menu-body">
+          <div class="menu-name" style="color:#fff;" data-i18n="f6">Molten Chocolate Magic</div>
+          <div class="menu-desc" style="color:rgba(255,255,255,0.7);" data-i18n="f6d">Molten hot chocolate pours out. That's the magic.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ PULL SHOT ══════════════════════ -->
+<div class="wave-wrap" style="background:var(--cream);">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:48px;">
+    <path d="M0,0 C360,48 1080,0 1440,32 L1440,48 L0,48 Z" fill="#1C1C1C"/>
+  </svg>
+</div>
+
+<section class="pull">
+  <div class="pull-inner reveal">
+
+    <!-- Image -->
+    <div class="pull-img-wrap">
+      <div class="pull-circle"></div>
+      <img src="images/cookie-pull.png" alt="&Cookies — the pull" class="pull-img" />
+    </div>
+
+    <!-- Copy -->
+    <div>
+      <h2 class="pull-title">
+        <span class="amp">&amp;</span>COOKIES
+      </h2>
+      <span class="pull-script" data-i18n="pull_sub">every day.</span>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="https://linktr.ee/andcookies" target="_blank" rel="noopener" class="btn-white" data-i18n="btn_talabat_cta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+          Order on Talabat
+        </a>
+        <a href="https://linktr.ee/andcookies" target="_blank" rel="noopener" class="btn-outline-white" data-i18n="btn_whatsapp_cta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+
+      <!-- Photo pair -->
+      <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;">
+        <img src="images/its-all-about-you.png" alt="It's all about you &Cookies" style="width:130px;border-radius:12px;border:2px solid rgba(255,255,255,0.1);box-shadow:0 8px 20px rgba(0,0,0,0.3);transform:rotate(-2deg);" />
+        <img src="images/brand-copy.png" alt="&Cookies brand" style="width:130px;border-radius:12px;border:2px solid rgba(255,255,255,0.1);box-shadow:0 8px 20px rgba(0,0,0,0.3);transform:rotate(1.5deg);" />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="wave-wrap" style="background:#1C1C1C;">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:48px;">
+    <path d="M0,32 C360,0 1080,48 1440,16 L1440,48 L0,48 Z" fill="#D63028"/>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════ ORDER ══════════════════════ -->
+<section id="order" class="order">
+  <div class="order-inner reveal">
+
+    <span class="section-label" style="color:rgba(255,255,255,0.55);" data-i18n="order_label">✦ Ready?</span>
+    <h2 class="order-title" data-i18n="order_title">It's all about you &amp;Cookies.</h2>
+    <p class="order-sub" data-i18n="order_sub">Order now — delivery via Talabat or direct on WhatsApp.</p>
+
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://linktr.ee/andcookies" target="_blank" rel="noopener" class="btn-white" data-i18n="btn_talabat_order">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+        Order on Talabat
+      </a>
+      <a href="https://linktr.ee/andcookies" target="_blank" rel="noopener" class="btn-outline-white" data-i18n="btn_whatsapp_order">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <p style="margin-top:24px;font-size:0.85rem;color:rgba(255,255,255,0.5);">
+      <a href="https://linktr.ee/andcookies" target="_blank" rel="noopener"
+         style="color:rgba(255,255,255,0.7);text-decoration:underline;" class="ltr-text">linktr.ee/andcookies</a>
+    </p>
+  </div>
+</section>
+
+<div class="wave-wrap" style="background:var(--red);">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:48px;">
+    <path d="M0,16 C360,48 1080,0 1440,32 L1440,48 L0,48 Z" fill="var(--cream)"/>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════ LOCATION ══════════════════════ -->
+<section id="location" class="location">
+  <div class="location-inner reveal">
+    <div class="location-card">
+
+      <!-- Spinning circular stamp -->
+      <svg class="loc-badge" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="42" cy="42" r="40" fill="#1B3A6B"/>
+        <path id="cp" d="M 42,42 m -28,0 a 28,28 0 1,1 56,0 a 28,28 0 1,1 -56,0" fill="none"/>
+        <text font-family="Nunito,sans-serif" font-size="8.5" font-weight="800" fill="#F5EDD5" letter-spacing="2.5">
+          <textPath href="#cp">MESSILAH · KUWAIT · </textPath>
+        </text>
+        <circle cx="42" cy="42" r="4" fill="#D63028"/>
+      </svg>
+
+      <span class="section-label" data-i18n="loc_label">Find Us</span>
+      <h2 class="location-name" data-i18n="loc_name">Messilah Beach</h2>
+      <p class="location-city" data-i18n="loc_city">Kuwait</p>
+
+      <div class="location-row">
+        <div>
+          <div class="loc-item-label" data-i18n="hours_label">Hours</div>
+          <div class="loc-item-val" data-i18n="hours">10AM – 12AM</div>
+          <div style="font-size:0.8rem;color:#bbb;margin-top:2px;" data-i18n="daily">Daily</div>
+        </div>
+        <div style="width:1px;background:rgba(214,48,40,0.15);"></div>
+        <div>
+          <div class="loc-item-label" data-i18n="delivery_label">Delivery</div>
+          <div class="loc-item-val">Talabat</div>
+          <div style="font-size:0.8rem;color:#bbb;margin-top:2px;" data-i18n="delivery_sub">+ WhatsApp</div>
+        </div>
+        <div style="width:1px;background:rgba(214,48,40,0.15);"></div>
+        <div>
+          <div class="loc-item-label">Instagram</div>
+          <a href="https://www.instagram.com/andcookies.kw/" target="_blank" rel="noopener"
+             class="loc-item-val ltr-text" style="color:var(--red);text-decoration:none;display:block;">@andcookies.kw</a>
+        </div>
+      </div>
+
+      <a href="https://linktr.ee/andcookies" target="_blank" rel="noopener" class="btn-red" style="font-size:0.95rem;padding:12px 28px;" data-i18n="all_links">All Links →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">&amp;COOKIES</a>
+    <p class="footer-copy" data-i18n="footer_copy">The Best Cookies in Town · Messilah Beach, Kuwait</p>
+    <a href="https://www.instagram.com/andcookies.kw/" target="_blank" rel="noopener" class="footer-ig ltr-text">@andcookies.kw</a>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════ SCRIPTS ══════════════════════ -->
+<script>
+  const t = {
+    en: {
+      nav_menu:"Menu", nav_about:"About", nav_order:"Order", nav_find:"Find Us",
+      hero_eyebrow:"✦ Messilah Beach, Kuwait",
+      hero_title:"COOKIES",
+      hero_body:"A unique concept rooted in bold flavors & local taste. Our menu rotates monthly — always new cravings, &same obsession.",
+      btn_talabat:"Order on Talabat", btn_whatsapp:"WhatsApp",
+      stat1:"Flavors this month", stat2:"Month only", stat3:"Obsession",
+      stamp:"Certifiably\nTempting",
+      card_label:"Monthly Rotation",
+      about_label:"✦ Our Story",
+      about_h1:"Bold flavors.", about_h2:"Local taste.",
+      about_p1:"We are a unique concept rooted in bold flavors & local taste. Our menu rotates monthly, giving each flavor the time & space to be enjoyed.",
+      about_p2:"We rotate our menu monthly to keep things exciting, while still giving the flavors enough time to shine ✦. Each month brings new flavors inspired by the season — and our cravings.",
+      about_quote:'"Always new flavors, new cravings, &same obsession!"',
+      menu_label:"✦ April's Menu", menu_title:"This Month's Six.",
+      menu_sub:"Six flavors. One month. Then they're gone — for real.",
+      local:"Local Flavor",
+      f1:"Pomegranate Frosted", f1d:"Tart pomegranate glaze on a soft, golden cookie base. Local-inspired & totally addictive.",
+      f2:"Raspberry Cheesecake", f2d:"Cream cheese swirl, fresh raspberry. Rich, tangy, unforgettable.",
+      f3:"Pistachio Stuffed Baklava", f3d:"Kuwait's beloved baklava, reimagined inside a stuffed specialty cookie.",
+      f4:"Apple Crumble", f4d:"Warm spiced apple under a buttery crumble top. Comfort in cookie form.",
+      f5:"Choco Chunk", f5d:"The classic, perfected. Dark chocolate chunks that melt with every bite.",
+      f6_teaser:"Break it open.", f6:"Molten Chocolate Magic", f6d:"Molten hot chocolate pours out. That's the magic.",
+      pull_sub:"every day.",
+      btn_talabat_cta:"Order on Talabat", btn_whatsapp_cta:"WhatsApp",
+      order_label:"✦ Ready?",
+      order_title:"It's all about you &Cookies.",
+      order_sub:"Order now — delivery via Talabat or direct on WhatsApp.",
+      btn_talabat_order:"Order on Talabat", btn_whatsapp_order:"WhatsApp",
+      loc_label:"Find Us", loc_name:"Messilah Beach", loc_city:"Kuwait",
+      hours_label:"Hours", hours:"10AM – 12AM", daily:"Daily",
+      delivery_label:"Delivery", delivery_sub:"+ WhatsApp",
+      all_links:"All Links →",
+      footer_copy:"The Best Cookies in Town · Messilah Beach, Kuwait",
+    },
+    ar: {
+      nav_menu:"القائمة", nav_about:"من نحن", nav_order:"اطلب", nav_find:"اعثر علينا",
+      hero_eyebrow:"✦ شاطئ المسيلة، الكويت",
+      hero_title:"كوكيز",
+      hero_body:"مفهوم فريد متجذر في النكهات الجريئة والذوق المحلي. قائمتنا تتغير شهريًا — دائماً نكهات جديدة ونفس الهوس.",
+      btn_talabat:"اطلب من طلبات", btn_whatsapp:"واتساب",
+      stat1:"نكهات هذا الشهر", stat2:"شهر واحد فقط", stat3:"الهوس",
+      stamp:"موثّق\nبالإغراء",
+      card_label:"التغيير الشهري",
+      about_label:"✦ قصتنا",
+      about_h1:"نكهات جريئة.", about_h2:"ذوق محلي.",
+      about_p1:"نحن مفهوم فريد متجذر في النكهات الجريئة والذوق المحلي. قائمتنا تتغير شهريًا، لنمنح كل نكهة الوقت والمساحة لتُستمتع بها.",
+      about_p2:"نغير قائمتنا شهريًا للحفاظ على الإثارة، مع منح النكهات الوقت الكافي للتألق ✦. كل شهر يأتي بنكهات مستوحاة من الموسم وشهواتنا.",
+      about_quote:'"دائماً نكهات جديدة، شهوات جديدة، ونفس الهوس!"',
+      menu_label:"✦ قائمة أبريل", menu_title:"نكهات الشهر الستة.",
+      menu_sub:"ست نكهات. شهر واحد. ثم تختفي — حقاً.",
+      local:"نكهة محلية",
+      f1:"رمان مُثلَّج", f1d:"تزجيج الرمان الحامض على كوكيز ذهبية طرية. مستوحاة من المحلي وإدمانية تمامًا.",
+      f2:"تشيزكيك بالتوت", f2d:"دوامة الكريمة الحامضة مع التوت الطازج. غنية، لاذعة، لا تُنسى.",
+      f3:"بقلاوة محشوة بالفستق", f3d:"البقلاوة الكويتية الشهيرة، معاد تصورها داخل كوكيز محشوة.",
+      f4:"كرامبل التفاح", f4d:"تفاح دافئ بالتوابل تحت فتات الزبدة. راحة في هيئة كوكيز.",
+      f5:"قطع الشوكولاتة", f5d:"الكلاسيكي في أكمل صورة. قطع شوكولاتة داكنة تذوب مع كل قضمة.",
+      f6_teaser:"افتحه.", f6:"سحر الشوكولاتة السائلة", f6d:"تنهمر الشوكولاتة الساخنة. هذا هو السحر.",
+      pull_sub:"كل يوم.",
+      btn_talabat_cta:"اطلب من طلبات", btn_whatsapp_cta:"واتساب",
+      order_label:"✦ جاهز؟",
+      order_title:"كل شيء يدور حولك &كوكيز.",
+      order_sub:"اطلب الآن — توصيل عبر طلبات أو مباشرة على واتساب.",
+      btn_talabat_order:"اطلب من طلبات", btn_whatsapp_order:"واتساب",
+      loc_label:"اعثر علينا", loc_name:"شاطئ المسيلة", loc_city:"الكويت",
+      hours_label:"أوقات العمل", hours:"١٠ص – ١٢م", daily:"يومياً",
+      delivery_label:"التوصيل", delivery_sub:"+ واتساب",
+      all_links:"جميع الروابط ←",
+      footer_copy:"أفضل الكوكيز في المدينة · شاطئ المسيلة، الكويت",
+    }
+  };
+
+  function setLang(lang) {
+    const tr = t[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if (tr[k] !== undefined) el.textContent = tr[k];
+    });
+    const html = document.documentElement;
+    html.setAttribute('lang', lang);
+    html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+    localStorage.setItem('preferred-language', lang);
+  }
+
+  (function(){ setLang(localStorage.getItem('preferred-language') || 'en'); })();
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
